@@ -1,0 +1,8 @@
+#ignore everything
+*
+
+#except .gitignore, .txt and .md and other sub folders
+!.gitignore
+!*/
+!*.txt
+!*.md
