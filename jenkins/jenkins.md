@@ -29,7 +29,15 @@ __[Jenkins wiki](https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+
 
     There is a jenkins startup script placed at `/etc/init.d/jenkins` after installation of the package.
     This makes jenkins server up and running after each reboot.
-    
+
+#### User/admin password
+* User password is stored at `/var/lib/jenkins/users/<admin>/config.xml`
+* A hashed password is stored for tag 'passwordHash'
+
+
+    A test password with hash value `#jbcrypt:$2a$10$razd3L1aXndFfBNHO95aj.IVrFydsxkcQCcLmujmFQzll3hcUrY7S` can be used to
+set the password to 'test' when password is lost.
+
 ### Error:
 * hudson.plugins.git.GitException: Command "git fetch....returned status code 128:
   Host key verification failed.
@@ -45,6 +53,24 @@ __[Jenkins wiki](https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+
     * [X] Server: Give numeric value of IP
     * [X] Port, Username, password to access the Proxy Server.
      
+##### Repo Access Error:
+
+    Failed to connect to repository : Command "git ls-remote -h ssh://git@gitserver:/opt/git/hello-world.git HEAD" returned status code 128:
+    stdout:
+    stderr: Host key verification failed.
+    fatal: Could not read from remote repository.
+
+    Please make sure you have the correct access rights
+    and the repository exists.
+
+To resolve this error (if you think all other settings are correct then..):
+
+    Run the command `git ls-remote -h ssh://git@gitserver:/opt/git/hello-world.git` from local terminal and
+    give `yes` to the ECDSA key fingerprint is... question that pops up while connecting to a new unauthenticated Host.
+
+Sometimes `Credentials` is needed to have Jenkins access the git repo.
+It can be found in the `Repository URL` section!
+
 
 ###### Steps to find the proxy server IP address, can be looked at __[proxy info](https://github.com/Kalinga/linuxHelper/blob/master/proxy/proxy.md)__
 
