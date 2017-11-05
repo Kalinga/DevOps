@@ -1,0 +1,6 @@
+		PORT INFO
+---------------------------
+8080:Jenkins    (Native)
+8081:ngnix      (Via Docker)
+8082:wordpress  (Via Docker)
+8083:phpmyadmin (Via Docker)
