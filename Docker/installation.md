@@ -30,18 +30,6 @@ sudo groupadd docker
 Add your user to the docker group.
 sudo usermod -aG docker $USER
 
-Remove all stopped/Exited containers
-docker ps -aq --no-trunc | xargs docker rm
-
-List all Exited containers
-docker ps -aq -f status=exited
-
-Filter op based on a condition
-docker ps -a -f name="loving*"
-
-Docker Copy without volume plugin
-docker cp 1.txt 2cd4df5495b0:/
-docker cp  2cd4df5495b0:/2.txt .
 
 Check connectivity from within the docker container/image creation process
 docker run busybox nslookup google.com 
@@ -52,3 +40,28 @@ nmcli dev show | grep 'IP4.DNS'
 
 Credit stackoverflow post and Robin Winslow's original blog.
 
+Container Connection Mode
+	Detached Mode For running apps within the Container
+	Root User Mode For trouble shooting inside the container
+
+
+[SWARM] Docker swarm is a cluster of machine running docker which provide
+scalable and realiable  platform to run many containers.
+
+Docker Machine:
+curl -L https://github.com/docker/machine/releases/download/v0.13.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
+chmod +x /tmp/docker-machine &&
+sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+
+Install ui-for-docker
+docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock uifd/ui-for-docker
+localhost:9000 in the browser shows the UI
+
+Docker daemon default config file cat /etc/default/docker
+Another place for it: /etc/docker/daemon.json
+
+By default the docker daemon listens on local var/run/docker.sock
+
+systemd is the init process for modern Lunix based OS like Ubuntu
+systemctl <service name> status gives the status of the service
+	
