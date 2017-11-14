@@ -18,10 +18,17 @@ docker run -d kalinga/nginx:v0.1
             "AttachStderr": false,
           }
 
+Building an image
+-t is the tag and . indicates Dockerfile present in the CWD
+docker build -t kalinga/mywebsite:v0.1 .
+docker run -p 8081:80  kalinga/mywebsite:v0.1
 
 docker run -p 8081:80 kalinga/nginx:v0.1
 docker run -d -p 8081:80 kalinga/nginx:v0.1
 docker run -it -d -p 8081:80 kalinga/nginx:v0.1
+
+Can get a terminal to the above running container
+docker exec -it <<71eb39874dc1>> bash
 
 8081 port on the Host
 80 port from the running container
