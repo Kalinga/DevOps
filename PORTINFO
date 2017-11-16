@@ -4,3 +4,5 @@
 8081:ngnix      (Via Docker)
 8082:wordpress  (Via Docker)
 8083:phpmyadmin (Via Docker)
+
+non-admin port, 1024 or greater

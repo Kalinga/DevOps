@@ -103,3 +103,6 @@ Have these parameters in /etc/default/docker
 Use of pipework can introduce a network interface using that 
 containers can communicate among them
 
+Docker HUB login
+docker login
+
