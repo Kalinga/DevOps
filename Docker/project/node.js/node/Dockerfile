@@ -1,5 +1,5 @@
 # Set the base image
-FROM kalinga/nodeapp:v0.1
+FROM debian
 
 # Author
 LABEL Author="Kalinga Bhusan Ray"
@@ -12,19 +12,23 @@ LABEL Desc="This is an image for node.js app "
 #	curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
 #    apt-get install -y nodejs
 
+RUN apt-get update && apt-get -y install \
+    gnupg curl \
+    iproute2 \
+	iputils-ping \
+	python build-essential
 
-RUN which node && \
-	node --version
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get -y install nodejs
 
-COPY hello.js /root/nodejs_app/hello.js
+COPY src/ /root/nodejs_app/
 
 #Working Dir
 WORKDIR /
 
 #Expose ports
-EXPOSE 80
+EXPOSE 8081
 
-#Default command execution on container start up
-#CMD service nginx start
-#CMD  /usr/sbin/nginx -g "daemon off;"
+# Run app using node
+CMD ["node", "/root/nodejs_app/hello.js"]
 

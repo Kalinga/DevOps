@@ -4,9 +4,13 @@ FROM nginx
 # Author
 LABEL Author="Kalinga Bhusan Ray"
 LABEL E-Mail="kalinga-bhusan.ray@tu-ilmenau.de"
-LABEL Desc="This is an image for nginx proxy server for serving node.js application request"
+LABEL Desc="This is an image for nginx proxy server for serving \
+			request meants for node.js application request"
 
-COPY etc-nginx-sites-available-default /etc/nginx/sites-available/default
+RUN apt-get update && apt-get -y install \
+	curl iproute2 iputils-ping
+
+COPY config/nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY html /usr/share/nginx/html
 

@@ -1,0 +1,2 @@
+docker stop nodeapp_nginx && docker rm nodeapp_nginx && docker rmi kalinga/nodeapp_nginx:v0.1 && docker build -t kalinga/nodeapp_nginx:v0.1 . && docker run -d --name="nodeapp_nginx" -p 8080:80 --link nodejs:nodejs kalinga/nodeapp_nginx:v0.1 && docker ps
+docker stop nodejs && docker rm nodejs docker rmi kalinga/nodeapp:v0.1 && docker rmi kalinga/nodeapp:v0.1 &&  

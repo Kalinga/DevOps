@@ -18,6 +18,7 @@ RUN apt-get update && \
 
 #Copying  local file
 COPY ./iamkalinga.html /var/www/html/index.nginx-debian.html
+
 #Below line does not work
 #COPY ./iamkalinga.html /usr/share/nginx/html/index.html
 
