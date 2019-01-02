@@ -1,0 +1,12 @@
+// NEXT BUILD NUMBER
+item = Jenkins.instance.getItemByFullName("my job name")
+println item.getDisplayName()
+println item.getName()
+item.builds.each() { b ->
+  b.delete()
+}
+println item.getLastBuild()
+item.updateNextBuildNumber(1)
+item.save()
+
+//
