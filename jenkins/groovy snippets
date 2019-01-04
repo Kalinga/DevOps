@@ -1,3 +1,5 @@
+https://javadoc.jenkins-ci.org/hudson/model/package-summary.html
+
 // NEXT BUILD NUMBER
 item = Jenkins.instance.getItemByFullName("my job name")
 println item.getDisplayName()
