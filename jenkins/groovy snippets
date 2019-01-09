@@ -11,4 +11,32 @@ println item.getLastBuild()
 item.updateNextBuildNumber(1)
 item.save()
 
-//
+// CHANGE EXECUTOR NUMBER
+import hudson.model.Cause
+//println(Jenkins)
+jenkins=(Jenkins.get())
+nodes=(jenkins.getNodesObject().getNodes())
+for(n in nodes) {
+        //println(n.class.canonicalName)
+  		//println(n.getNodeName())
+        if (n.getNodeName().equals("my_slave_node_name")) {
+        	println("your Machine")
+          	println(n.getNumExecutors())
+          	job = jenkins.getJob("jenkins_job_name")
+          	println(job)
+          	n.setNumExecutors(2)
+			n.save()
+          	job.scheduleBuild(new Cause.UserIdCause("jenkins_user_id"))
+          	n.setNumExecutors(1)
+          	println(n.getNumExecutors())
+          	n.save()
+
+        }
+}
+
+/*println(Jenkins.ADMINISTER.description)
+items=Jenkins.instance.items
+for(item in items) {
+  		println(item)
+        println(item.class.canonicalName)
+}*/
