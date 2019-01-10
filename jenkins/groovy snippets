@@ -30,7 +30,7 @@ for(n in nodes) {
           	n.setNumExecutors(1)
           	println(n.getNumExecutors())
           	n.save()
-
+                jenkins.getNodesObject().setNodes(jenkins.getNodesObject().getNodes())
         }
 }
 
