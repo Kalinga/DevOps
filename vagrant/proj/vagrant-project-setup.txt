@@ -1,0 +1,65 @@
+Install:
+	SW Tools:
+		Oracle VM Virtual Manager
+			Version: 6.0.8 r130520 (Qt5.6.2)
+			Src: https://www.virtualbox.org/wiki/Downloads
+		Vagrant
+			Version: 2.2.5
+			Src: https://www.vagrantup.com/downloads.html
+	plug-ins:
+		vagrant plugin install vagrant-vbguest
+		vagrant plugin install vagrant-docker-compose
+		
+		
+
+!!!BELOW STEPS ARE ALEAREDY DONE USING SCRIPTS, YOU NEED NOT DO THIS UNLESS YOU WANT TO KNOW MORE!!!
+
+$ <commands> : Are entered from Windows console
+
+$ mkdir proj
+$ cd proj
+$ vagrant init ubuntu/trusty64
+
+This will place a Vagrantfile in your current directory. This 'Vagrantfile' in your local 
+Machine supposed to be re-written by the one from version control.
+
+Start your VM 
+$ vagrant up
+
+For the first time it will download the base image to your local system and may take some time.
+Actual storage location of the Base image: 
+C:\Users\<kbr-user name>\.vagrant.d\boxes\ubuntu-VAGRANTSLASH-trusty64\20190429.0.1\virtualbox
+
+You can list the recently added box (base image)
+$ vagrant box list
+A sample output when this document was prepared: ubuntu/trusty64 (virtualbox, 20190429.0.1)
+
+$ vagrant ssh
+With this you would land in VM's shell. Do what you are are supposed to do, and log out with 'exit'
+
+
+If you wish to release all the resource, then key in the below commands 
+$ vagrant destroy 
+
+REMEMBER: Any new data file created outside of synced folders are *wiped away/vanished/destroyed* during
+$ vagrant destroy   
+
+Don't worry this shall not remove your base image.
+
+Consider the folder 'proj' to be our project folder that contains source code and scripts.
+'proj' also contain 'Vagrantfile'
+This project folder is automatically shared and mounted to Virtual Machine at path /vagrant
+
+If there is some specific need for a different folder to be synced, then below code can be used in Vagrantfile
+  config.vm.synced_folder "src/", "/srv/website"
+  
+Change it to other location then set the env variable
+export VAGRANT_HOME=my/new/path/goes/here/
+before vagrant commands are used
+
+$ vagrant status
+To see the current machine status
+
+===============================================
+Status of the docker container
+jps

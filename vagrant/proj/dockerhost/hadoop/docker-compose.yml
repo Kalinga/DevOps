@@ -1,0 +1,24 @@
+#YAML file to configure application’s services. 
+#YAML Compose file definies services, networks and volumes.
+#defines how Docker containers should behave in production
+#https://docs.docker.com/compose/gettingstarted/
+
+
+version: '3'
+#Define the services that make up app
+#below details are kind of passing command line parameters for  
+#'docker container|network |volume create'
+
+services:
+    hadoop:
+        build:
+            context: ..
+            dockerfile: ./hadoop/Dockerfile
+        image: proj/hadoop:0.1
+        container_name: proj_hadoop_container
+#This results in an image named proj/hadoop:default
+
+#Looks like there is no official docker image for hadoop in dockerhub
+#A related issue exists https://issues.apache.org/jira/browse/HADOOP-13397
+
+#depends_on and links both specify a dependency for the order of service start up       

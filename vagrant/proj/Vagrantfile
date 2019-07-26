@@ -1,0 +1,57 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#host locale environment variables are passed to guest. 
+#It may cause failures if the guest software do not support host locale.
+#So set it explicitly
+ENV["LC_ALL"] = "en_US.UTF-8"
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.hostname = "proj-client"
+  
+  # This name is the name Vagrant gives to the VM
+  # This name would appear in the output of 'vagrant global-status'
+  config.vm.define "proj_vm"
+  #config.vm.box_download_insecure = true
+  #
+  config.vm.provider :virtualbox do |vb|
+	 # This is the name that appear in the Oracle Virtual Box GUI
+ 	 vb.name = "proj"
+	 vb.memory = 2048
+     vb.cpus = 2
+  end
+  
+  config.vm.provision "docker"
+  config.vm.provision "shell", inline: "echo Provisioning using shell"
+  config.vm.provision "shell" do |s|
+    s.path = "scripts/install-open-jdk.sh"
+    s.args   = "8"
+  end
+  
+  # config.vm.box_check_update = false
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+  # config.vm.network "private_network", ip: "192.168.33.10"
+
+  # config.vm.network "public_network"
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  # config.vm.provider "virtualbox" do |vb|
+  #   # Display the VirtualBox GUI when booting the machine
+  #   vb.gui = true
+  #
+  #   # Customize the amount of memory on the VM:
+  #   vb.memory = "1024"
+  # end
+  #
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   apt-get update
+  #   apt-get install -y apache2
+  # SHELL
+end # end config
