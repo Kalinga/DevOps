@@ -1,0 +1,7 @@
+Data generator
+--------------------------
+yukim/sensor_data_generator git hub repository and is licensed under the Apache License 2.0
+need adaptation to python 3.*, original code was for python 2.7.*
+# Another open generator exist at https://github.com/Senzing/mock-data-generator
+
+

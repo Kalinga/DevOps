@@ -1,0 +1,13 @@
+docker version
+Client:
+ Version:           18.06.3-ce
+Server:
+ Engine:
+  Version:          18.06.3-ce
+
+Java in 'dockerhost':
+Java in 'proj':
+
+Hadoop in docker container:
+
+Cygwin: CYGWIN_NT-10.0 nb-kbr 3.0.7(0.338/5/3) 2019-04-30 18:08 x86_64 

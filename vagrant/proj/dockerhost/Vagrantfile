@@ -1,0 +1,38 @@
+#We need vagrant-docker-compose
+unless Vagrant.has_plugin?("vagrant-docker-compose")
+  system("vagrant plugin install vagrant-docker-compose")
+  puts "Dependencies installed, please try the command again."
+  exit
+end
+
+Vagrant.configure("2") do |config| 
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.box_check_update = false
+  
+  config.vm.define "dockerhost"
+  config.vm.hostname = "dockerhost"
+
+  config.vm.network "forwarded_port",
+    guest: 8080, host: 8080
+ 
+  config.vm.provider :virtualbox do |vb|
+      vb.name = "dockerhost"
+	  vb.memory = 4096
+      vb.cpus = 4
+  end
+  # runs in the dockerhost VM and installs a specific docker version
+  config.vm.provision :shell, path: "./../scripts/docker.sh"
+  # set up Docker in the new VM:
+  config.vm.provision :docker
+  # install docker-compose into the VM and run the docker-compose.yml file - if it exists -  whenever the  VM starts
+  # https://github.com/leighmcculloch/vagrant-docker-compose)
+  # compose_version:https://stackoverflow.com/questions/29276140/can-i-use-docker-compose-to-provision-vagrant-directly
+  
+  config.vm.provision :docker_compose, yml: "/vagrant/hadoop/docker-compose.yml", compose_version: "1.22.0",  rebuild: true, run:"always"
+  
+  # runs in the dockerhost VM and logs details about present docker images and containers
+  config.vm.provision :shell, path: "../scripts/docker-logs.sh"
+  
+  
+  
+end

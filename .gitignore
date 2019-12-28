@@ -1,5 +1,5 @@
 #ignore everything
-
+.vagrant
 
 #except .gitignore, .txt and .md and other sub folders
 !.gitignore
