@@ -38,7 +38,6 @@ acc_insufficient="insufficient-limit"
 async def order(transactions):
     global account
     async for transaction in transactions:
-        print(transaction)
         event = json.loads(transaction)
         #print(type(event))
         try:
@@ -54,7 +53,7 @@ async def order(transactions):
                     authorize_log['violations']=[]
                     authorize_log['violations'].append(acc_already_initialized)
                 elif not card_status: # account status not set and new event with "active-card": false
-                    authorize_log["account"]["active-card"] = account_table["account_status"]
+                    authorize_log["account"]["active-card"] = "true" if account_table["account_status"] else "false"
                     authorize_log['violations']=[]
 
                     # First event should be account activation, else violation
@@ -66,20 +65,21 @@ async def order(transactions):
                     account_table["availble_limit"] = avail_limit
 
                     print(account_table["availble_limit"])
-                    authorize_log["account"]["active-card"] = card_status
+                    authorize_log["account"]["active-card"] = "true" if account_table["account_status"] else "false"
+
                     authorize_log["account"]["available-limit"] = avail_limit
                     authorize_log['violations']=[]
 
-                print(json.dumps(authorize_log))
         except KeyError:
             try:
                 transaction_event = event["transaction"]
                 if(transaction_event):
+                    authorize_log["account"]["active-card"] = "true" if account_table["account_status"] else "false"
+                    authorize_log['violations'] = []
 
-                   if account_table["account_status"]:
+                    if account_table["account_status"]:
                         amount = transaction_event["amount"]
                         if(amount > account_table["availble_limit"]):
-                            print(amount, account_table["availble_limit"])
                             authorize_log["violations"] = []
 
                             # There is a violation if requested amount is more than available balance
@@ -90,19 +90,18 @@ async def order(transactions):
 
                             account_table["availble_limit"] = account_table["availble_limit"] - amount
                             authorize_log["account"]["available-limit"] = account_table["availble_limit"]
-                            
+
                             # Update the transaction list member of account object with vendor and time infomration 
                             # for implementing above two requirments
-                   else:
-                        authorize_log["account"]["active-card"] = account_table["account_status"]
-                        authorize_log['violations'] = []
-
+                    else:                        
                         # No transaction is allowed unless account is active
                         authorize_log['violations'].append(acc_not_initialized)
 
-                print(json.dumps(authorize_log))
             except KeyError:
                 print("Invalid event: event must be account/transaction related")
+        
+        print(json.dumps(authorize_log))
+
 
 def main():
     print("main: stream-event-app")
