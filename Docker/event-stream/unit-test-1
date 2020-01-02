@@ -1,0 +1,4 @@
+{"account": {"active-card": true, "available-limit": 100}}
+{"account": {"active-card": true, "available-limit": 200}}
+{"account": {"active-card": true, "available-limit": 300}}
+{"account": {"active-card": false, "available-limit": 100}}
