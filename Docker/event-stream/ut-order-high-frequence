@@ -1,0 +1,4 @@
+{"transaction": {"merchant": "Burger King", "amount": 20, "time": "2019-04-13T12:15:30.100Z"}}
+{"transaction": {"merchant": "Habbib's", "amount": 20, "time": "2019-04-13T12:15:45.500Z"}}
+{"transaction": {"merchant": "MacD", "amount": 10, "time": "2019-04-13T12:16:25.300Z"}}
+{"transaction": {"merchant": "Barista", "amount": 100, "time": "2019-04-13T12:17:25.700Z"}}
